@@ -1,0 +1,64 @@
+  <%= form_for @station do |f| %>
+  <div class="mb-3 row">
+    <div class="col-sm-2 col-form-label">
+      <label for = "station_name">Station name:</label>
+    </div>
+    <div class="col-sm-5">
+      <%= text_field 'station', 'name', required: true, class: 'form-control form-control-lg' %>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <div class="col-sm-2 col-form-label">
+      <label for = "station_phone">Station phone:</label>
+    </div>
+    <div class="col-sm-5">
+      <%= text_field 'station', 'phone', required: true, class: 'form-control form-control-lg' %>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <div class="col-sm-2 col-form-label">
+      <label for = "station_addres">Station address:</label>
+    </div>
+    <div class="col-sm-5">
+      <%= text_field 'station', 'address', required: true, class: 'form-control form-control-lg' %>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <div class="col-sm-2 col-form-label">
+      <label for = "station_info">Information about station:</label>
+    </div>
+    <div class="col-sm-5">
+      <%= text_field 'station', 'info', required: true, class: 'form-control form-control-lg' %>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <div class="col-sm-2 col-form-label">
+      <label for = "station_store_info">Store:</label>
+    </div>
+    <div class="col-sm-5">
+      <%= text_field 'station', 'store_info', required: true, class: 'form-control form-control-lg' %>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <div class="col-sm-2 col-form-label">
+      <label for = "station_store_info">Trains schedule:</label>
+    </div>
+    <div class="col-sm-10">
+      <%= f.fields_for :train_stations do |stations_form| %>
+        <div class="mb-3">
+          <%= stations_form.fields_for :train, class: "mr-3" do |train_form| %>
+            <%= train_form.label :name, "Train Number" %>
+            <%= train_form.text_field :name %>
+          <% end %>
+          <%= stations_form.label :arrival, "Arrival" %>
+          <%= stations_form.time_select :arrival, { default: { hour: '0', minute: '0' } } %>
+          <%= stations_form.label :departure, "Departure" %>
+          <%= stations_form.time_select :departure, { default: { hour: '0', minute: '0' } } %>
+          <%= stations_form.check_box :_destroy %>
+          <%= stations_form.label :_destroy, 'Remove' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <%= submit_tag "Save", class: 'btn btn-primary btn-md' %>
+<% end %>

@@ -1,7 +1,7 @@
 class StationsController < ApplicationController
   before_action :require_authentication, except: %i[show index]
   before_action :set_station!, only: %i[show destroy edit update]
-  #after_action :verify_authorized, except: %i[show index]
+  before_action :fetch_trains, only: %i[show]
 
   def index
     @stations = Station.all
@@ -9,6 +9,7 @@ class StationsController < ApplicationController
 
   def new
     @station = Station.new
+    set_blank_train_stations
   end
 
   def create
@@ -33,6 +34,7 @@ class StationsController < ApplicationController
   end
 
   def edit
+    set_blank_train_stations
   end
 
   def destroy
@@ -42,15 +44,37 @@ class StationsController < ApplicationController
 
   private
 
-  def authorize_station!
-    authorize(@station || Station)
-  end
-
   def set_station!
     @station = Station.find_by id: params[:id]
   end
 
+  def set_blank_train_stations
+    3.times do
+      train_station = @station.train_stations.build
+      train_station.build_train
+    end
+  end
+
   def station_params
-    params.require(:station).permit(:name)
+    params.require(:station).permit(
+      :name,
+      :phone,
+      :address,
+      :info,
+      :store_info,
+      train_stations_attributes: [
+        :id,
+        "arrival(4i)",
+        "arrival(5i)",
+        "departure(4i)",
+        "departure(5i)",
+        :_destroy,
+        train_attributes: [:id, :name]
+      ]
+    )
+  end
+
+  def fetch_trains
+    @trains = @station.trains.joins(:train_stations).order(:arrival).all
   end
 end

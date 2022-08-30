@@ -1,0 +1,25 @@
+<% provide :page_title, 'Trains' %>
+<% currently_at 'Trains' %>
+<div class="text-center mt-5">
+  <h1 class="mb-4">Trains:</h1>
+  <div class="row row-cols-1 row-cols-md-5 g-4 mb-4">
+    <% @trains.each do |train| %>
+      <div class="col">
+        <div class="card" style="width: 300px;">
+          <h2 class="mb-4 card-header"><%= train.name %></h2>
+          <div class="card-body">
+            <%= link_to "Show", train_path(train), class: 'btn btn-secondary btn-sm', :method => :get %>
+            <% if user_signed_in? %>
+              <%= link_to "Edit", edit_train_path(train), class: 'btn btn-secondary btn-sm', :method => :get %>
+              <%= link_to "Destroy", train_path(train), class: 'btn btn-danger btn-sm', data: {method: :delete, confirm: "Are you sure?"} %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <% if user_signed_in? %>
+    <%= button_to "Add new train", new_train_path, :id => 'open-contacts-dialog-btn',
+    class: 'btn btn-primary', :method => :get %>
+  <% end %>
+</div>
