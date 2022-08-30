@@ -1,7 +1,7 @@
 class StationsController < ApplicationController
   before_action :require_authentication, except: %i[show index]
   before_action :set_station!, only: %i[show destroy edit update]
-  before_action :fetch_trains, only: %i[show]
+  before_action :fetch_train_stations, only: %i[show]
 
   def index
     @stations = Station.all
@@ -74,7 +74,7 @@ class StationsController < ApplicationController
     )
   end
 
-  def fetch_trains
-    @trains = @station.trains.joins(:train_stations).order(:arrival).all
+  def fetch_train_stations
+    @train_stations = @station.train_stations.joins(:train).order('train_stations.arrival').all
   end
 end

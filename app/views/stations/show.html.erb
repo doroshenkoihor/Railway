@@ -1,6 +1,35 @@
 <% currently_at 'Home' %>
 <h1 class="mb-4"><%= @station.name%></h1>
-<h1 class="mb-4">Station phone: <%= @station.phone%></h1>
-<h1 class="mb-4">Station address<%= @station.address%></h1>
-<h1 class="mb-4">Station information<%= @station.info%></h1>
-<h1 class="mb-4">Station store info:<%= @station.store_info%></h1>
+<h2 class="mb-4">Station phone: <%= @station.phone%></h2>
+<h2 class="mb-4">Station address: <%= @station.address%></h2>
+<h2 class="mb-4">Station information: <%= @station.info%></h2>
+<h2 class="mb-4">Station store info: <%= @station.store_info%></h2>
+<% if @train_stations.present? %>
+  <h2>Trains Schedule:</h2>
+  <% @train_stations.map do |train_station| %>
+    <div>
+      <div class="mb-3 row">
+        <div class="col-sm-1">
+          <label for = "station_phone">Train Number:</label>
+        </div>
+        <div class="col-sm-2">
+          <%= train_station.train.name %>
+        </div>
+        <div class="col-sm-1">
+          <label for = "station_phone">Arrival:</label>
+        </div>
+        <div class="col-sm-1">
+          <%= train_station.arrival.strftime("%H:%M") %>
+        </div>
+        <div class="col-sm-1">
+          <label for = "station_phone">Departure:</label>
+        </div>
+        <div class="col-sm-1">
+          <%= train_station.departure.strftime("%H:%M") %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <h2>There are no trains yet on this station.</h2>
+<% end %>
