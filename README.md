@@ -1,24 +1,16 @@
-# README
+# Railway app by Igor Doroshenko
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+<br />
+Tech stack used:<br />
+Styling - Bootstrap<br />
+Unit Tests - RSpec<br />
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Installation and usage instructions:
+- Pull the prohect to your local machine
+- Install gems by running `bundle install`
+- Setup and migrate DB - `rails db:create`, `rails db:migrate`, `rails db:seed` 
+- Launch app by running rails s
+- Login to application using following credentials:
+- Login: admin@admin.com
+- Password: 1
+- Enjoy!

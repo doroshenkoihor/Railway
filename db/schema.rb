@@ -46,9 +46,10 @@ ActiveRecord::Schema.define(version: 2022_08_30_105328) do
   end
 
   create_table "trains", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_trains_on_name", unique: true
   end
 
 end
